@@ -48,6 +48,7 @@ Preferences::Preferences(QWidget *parent) : HW("preferences", this, parent), ui(
     SetDefaults(this->ui->cbqOwn);
     SetDefaults(this->ui->cbqRevert);
     SetDefaults(this->ui->cbqTp);
+    SetDefaults(this->ui->cbqUsers);
     SetDefaults(this->ui->cbqUserspace);
     SetDefaults(this->ui->cbqWl);
     this->ui->cbProviders->addItem("Wiki");
@@ -244,6 +245,7 @@ void Huggle::Preferences::on_listWidget_itemSelectionChanged()
     SetValue(f->getIgnoreBots(), this->ui->cbqBots);
     SetValue(f->getIgnoreNP(), this->ui->cbqNew);
     SetValue(f->getIgnoreWL(), this->ui->cbqWl);
+    SetValue(f->getIgnoreUsers(), this->ui->cbqUsers);
     SetValue(f->getIgnore_UserSpace(), this->ui->cbqUserspace);
     SetValue(f->getIgnoreTalk(), this->ui->cbqTp);
     SetValue(f->getIgnoreFriends(), this->ui->cbqFrd);
@@ -271,6 +273,7 @@ void Preferences::Disable()
     this->ui->cbqTp->setEnabled(false);
     this->ui->pushButton_6->setEnabled(false);
     this->ui->tableWidget_3->setEnabled(false);
+    this->ui->cbqUsers->setEnabled(false);
     this->ui->cbqUserspace->setEnabled(false);
     this->ui->leIgnoredTags->setEnabled(false);
     this->ui->leRequiredTags->setEnabled(false);
@@ -298,6 +301,7 @@ void Preferences::EnableQueues()
     this->ui->leRequiredTags->setEnabled(true);
     this->ui->leIgnoredCategories->setEnabled(true);
     this->ui->leRequiredCategories->setEnabled(true);
+    this->ui->cbqUsers->setEnabled(true);
     this->ui->cbqUserspace->setEnabled(true);
     this->ui->cbqWl->setEnabled(true);
 }
@@ -444,6 +448,7 @@ void Huggle::Preferences::on_pushButton_6_clicked()
     filter->setIgnoreReverts(Match(this->ui->cbqRevert));
     filter->setIgnoreTalk(Match(this->ui->cbqTp));
     filter->setIgnoreFriends(Match(this->ui->cbqFrd));
+    filter->setIgnoreUsers(Match(this->ui->cbqUsers));
     filter->setIgnore_UserSpace(Match(this->ui->cbqUserspace));
     int ns = 0;
     while (ns < this->ui->tableWidget_3->rowCount())

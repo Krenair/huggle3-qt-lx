@@ -74,6 +74,7 @@ HuggleQueueFilter::HuggleQueueFilter()
     this->Reverts = HuggleQueueFilterMatchIgnore;
     this->Users = HuggleQueueFilterMatchIgnore;
     this->TalkPage = HuggleQueueFilterMatchExclude;
+    this->Users = HuggleQueueFilterMatchIgnore;
     this->UserSpace = HuggleQueueFilterMatchIgnore;
 }
 
@@ -90,6 +91,13 @@ bool HuggleQueueFilter::Matches(WikiEdit *edit)
         if (this->UserSpace == HuggleQueueFilterMatchExclude && edit->Page->GetNS()->GetCanonicalName() == "User")
             return false;
         if (this->UserSpace == HuggleQueueFilterMatchRequire && edit->Page->GetNS()->GetCanonicalName() != "User")
+            return false;
+    }
+    if (this->Users != HuggleQueueFilterMatchIgnore)
+    {
+        if (this->Users == HuggleQueueFilterMatchExclude && !edit->User->IsIP())
+            return false;
+        if (this->Users == HuggleQueueFilterMatchRequire && edit->User->IsIP())
             return false;
     }
     if (this->TalkPage != HuggleQueueFilterMatchIgnore)
